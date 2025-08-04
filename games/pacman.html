@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pacman - Crakcio Arcade</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="560" height="620"></canvas>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Pacman básico simulado (placeholder visual)
+    let pacman = {
+      x: 280,
+      y: 310,
+      radius: 20,
+      angle: 0.25,
+      direction: 1
+    };
+
+    function drawPacman() {
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.beginPath();
+      ctx.fillStyle = 'yellow';
+      ctx.moveTo(pacman.x, pacman.y);
+      ctx.arc(pacman.x, pacman.y, pacman.radius, pacman.angle * Math.PI, (2 - pacman.angle) * Math.PI);
+      ctx.lineTo(pacman.x, pacman.y);
+      ctx.fill();
+
+      pacman.x += 2 * pacman.direction;
+      if (pacman.x > canvas.width - pacman.radius || pacman.x < pacman.radius) {
+        pacman.direction *= -1;
+      }
+    }
+
+    function loop() {
+      drawPacman();
+      requestAnimationFrame(loop);
+    }
+
+    loop();
+  </script>
+</body>
+</html>

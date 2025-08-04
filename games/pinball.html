@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pinball Retro</title>
+  <style>
+    body {
+      background: #000;
+      color: #0ff;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    canvas {
+      display: block;
+      margin: 30px auto;
+      background: #111;
+      border: 2px solid #0ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 Pinball Retro</h1>
+  <canvas id="pinball" width="500" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById('pinball');
+    const ctx = canvas.getContext('2d');
+
+    const ball = {
+      x: 250,
+      y: 200,
+      radius: 10,
+      dx: 4,
+      dy: 4
+    };
+
+    function drawBall() {
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+      ctx.fillStyle = "#0ff";
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawBall();
+
+      ball.x += ball.dx;
+      ball.y += ball.dy;
+
+      if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+        ball.dx *= -1;
+      }
+
+      if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+        ball.dy *= -1;
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+</body>
+</html>
