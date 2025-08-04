@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zona Gamer - Crakcio Store</title>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link id="estilo-activo" rel="stylesheet" href="">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      background-color: #000;
+      color: #00f0ff;
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: #111;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    header img {
+      max-width: 200px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-top: 1rem;
+      text-shadow: 0 0 8px #00f0ff;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .game-card {
+      background-color: #111;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px #00f0ff;
+      transition: transform 0.3s ease;
+    }
+
+    .game-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00f0ff;
+    }
+
+    .game-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .game-card h3 {
+      margin: 0.5rem 0;
+      color: #fff;
+    }
+
+    .game-card button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background: linear-gradient(45deg, #00f0ff, #ff00c8);
+      border: none;
+      border-radius: 5px;
+      color: black;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      box-shadow: 0 0 10px #00f0ff;
+    }
+
+    .juego-container {
+      text-align: center;
+      margin: 2rem;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: 2px solid #00f0ff;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="images/logo-horizontal.png" alt="Logo Crakcio">
+  </header>
+
+  <h1>¡Bienvenido al Arcade de Crakcio Store! 🎮</h1>
+<section id="juegos-lista" class="juegos-grid"></section>
+         <div class="game-card">
+         <img src="images/pacman-cover.png" alt="Pacman" class="game-cover" />
+        <h3>Pacman</h3>
+        <p>Come puntos, evita fantasmas y revive el arcade legendario.</p>
+        <button onclick="cargarJuego('games/pacman.html')">🎮 Jugar</button>
+        </div>
+
+        <div class="game-card">
+         <img src="images/pinball-cover.png" alt="Pinball XP" class="game-cover" />
+        <h3>Pinball XP</h3>
+         <p>El mítico juego de Windows XP... ¡ahora en Crakcio!</p>
+         <button onclick="cargarJuego('games/pinball.html')">🎮 Jugar</button>
+        </div>
+
+         <div class="game-card">
+         <img src="images/snake-cover.png" alt="Snake" class="game-cover" />
+          <h3>Snake</h3>
+          <p>¡El clásico de Nokia ha vuelto! Come, crece y domina.</p>
+          <button onclick="cargarJuego('games/snake.html')">🎮 Jugar</button>
+        </div>
+
+        <div class="game-card">
+        <img src="images/tetris-cover.png" alt="Tetris" class="juego-portada" />
+         <h3>Tetris</h3>
+         <p>Un clásico inmortal de bloques. ¡Pon a prueba tu lógica!</p>
+         <button onclick="cargarJuego('games/tetris.html')">🎮 Jugar</button>
+         </div>
+         
+          <div class="game-card">
+         <img src="images/flappybird-cover.png" alt="Flappy Bird" class="game-cover" />
+         <h3>Flappy Bird</h3>
+         <p>Evita los tubos y supera tu récord. ¡Requiere reflejos!</p>
+         <button onclick="cargarJuego('games/flappybird.html')">🎮 Jugar</button>
+        </div>
+
+
+  </div>
+</section>
+  <div class="juego-container">
+    <iframe id="juego-frame" src="" frameborder="0"></iframe>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Crakcio Store. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+  function cargarJuego(url) {
+    const frame = document.getElementById('juego-frame');
+    frame.src = url;
+    frame.style.display = 'block';
+    frame.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+  <iframe id="juego-frame" class="juego-embed" style="display:none;" width="100%" height="600px"></iframe>
+
+</body>
+</html>

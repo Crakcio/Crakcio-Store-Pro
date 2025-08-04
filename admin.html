@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Admin - Crakcio Store</title>
+  <link id="estilo-activo" rel="stylesheet" href="">
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #00f0ff;
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #00f0ff;
+      text-shadow: 0 0 8px #00f0ff;
+    }
+
+    .admin-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .admin-controls button,
+    select,
+    input,
+    .admin-section button {
+      background-color: #111;
+      color: #fff;
+      border: 2px solid #00f0ff;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-family: 'Orbitron', sans-serif;
+      box-shadow: 0 0 10px #00f0ff;
+      transition: all 0.2s ease;
+    }
+
+    .admin-controls button:hover,
+    .admin-section button:hover {
+      background-color: #00f0ff;
+      color: #000;
+      box-shadow: 0 0 15px #00f0ff;
+      transform: scale(1.05);
+    }
+
+    .admin-section {
+      margin-bottom: 3rem;
+      border: 2px solid #00f0ff;
+      padding: 1rem;
+      border-radius: 12px;
+      background-color: #111;
+      box-shadow: 0 0 20px #00f0ff;
+    }
+
+    .producto-card {
+      background-color: #1a1a1a;
+      border: 1px solid #00f0ff;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 10px #00f0ff;
+      text-align: center;
+    }
+
+    .producto-card button {
+      margin: 0.5rem;
+    }
+
+    #form-producto input {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+
+    #form-producto {
+      margin-top: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h2>🧠 Panel de Administración Crakcio</h2>
+
+    <div class="admin-controls">
+      <button id="verProductos">🛒 Productos</button>
+      <button id="verPedidos">📦 Pedidos</button>
+    </div>
+<div id="panel-pedidos" class="hidden">
+  <h2>Pedidos</h2>
+  <div id="pedidos-admin"></div>
+</div>
+
+    <div class="admin-controls">
+      <h3 style="margin-right: 1rem;">🎨 Cambiar estilo de tienda</h3>
+      <select id="selector-estilo">
+        <option value="A">Estilo A</option>
+        <option value="B">Estilo B</option>
+      </select>
+      <button onclick="guardarEstilo()">Guardar estilo</button>
+    </div>
+
+    <section id="panel-productos" class="admin-section">
+      <h3>📦 Productos</h3>
+      <div id="productos-admin"></div>
+      <button id="nuevo-producto">➕ Agregar Producto</button>
+
+      <div id="form-producto" class="hidden">
+        <input type="text" id="nombre" placeholder="Nombre" required />
+        <input type="number" id="precio" placeholder="Precio" required />
+        <input type="text" id="categoria" placeholder="Categoría" required />
+        <input type="text" id="imagen_url" placeholder="URL Imagen" required />
+        <button id="guardar-producto">💾 Guardar</button>
+      </div>
+    </section>
+
+    <section id="panel-pedidos" class="admin-section hidden">
+      <h3>📋 Pedidos</h3>
+      <div id="pedidos-admin"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

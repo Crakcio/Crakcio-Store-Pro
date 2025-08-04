@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Perfil - Crakcio Store</title>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link id="estilo-activo" rel="stylesheet" href="">
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .perfil-container {
+      max-width: 500px;
+      margin: 80px auto;
+      padding: 2rem;
+      border: 2px solid #00f0ff;
+      border-radius: 12px;
+      background-color: #111;
+      box-shadow: 0 0 20px #00f0ff;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00f0ff;
+      text-shadow: 0 0 10px #00f0ff;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      color: #fff;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
+      border: 2px solid #00f0ff;
+      background-color: #000;
+      color: #00f0ff;
+      border-radius: 8px;
+      box-shadow: 0 0 8px #00f0ff;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    button[type="submit"] {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1.1rem;
+      background-color: #00f0ff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    button[type="submit"]:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00f0ff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #000;
+      color: #888;
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="images/logo-horizontal.png" alt="Crakcio Store Logo">
+    </div>
+    <div class="nav">
+      <button id="toggleMenu"><i data-lucide="menu"></i></button>
+      <nav id="menu" class="hidden">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="perfil.html">Perfil</a></li>
+          <li><a href="login.html"><i data-lucide="user"></i></a></li>
+          <li><a href="#" id="cerrar-sesion"><i data-lucide="log-out"></i> Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="perfil-container">
+    <h1>🧑‍💻 Mi Perfil</h1>
+    <form id="perfil-form">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="telefono">Teléfono:</label>
+      <input type="text" id="telefono" name="telefono" required>
+
+      <label for="direccion">Dirección:</label>
+      <input type="text" id="direccion" name="direccion" required>
+
+      <button type="submit">Guardar Cambios</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Crakcio Store. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <script type="module">
+    import { supabase } from './supabaseClient.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const { data: config } = await supabase
+        .from('configuracion_tienda')
+        .select('estilo_activo')
+        .limit(1)
+        .single();
+
+      const estilo = config?.estilo_activo || 'A';
+      document.getElementById('estilo-activo').href = estilo === 'A' ? 'estiloA.css' : 'estiloB.css';
+
+      const user = supabase.auth.user();
+      if (!user) {
+        alert('Debes iniciar sesión para ver tu perfil');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('usuarios')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      if (data) {
+        document.getElementById('nombre').value = data.nombre || '';
+        document.getElementById('telefono').value = data.telefono || '';
+        document.getElementById('direccion').value = data.direccion || '';
+      }
+    });
+
+    document.getElementById('perfil-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value;
+      const telefono = document.getElementById('telefono').value;
+      const direccion = document.getElementById('direccion').value;
+      const user = supabase.auth.user();
+
+      const { error } = await supabase
+        .from('usuarios')
+        .upsert({
+          id: user.id,
+          nombre,
+          telefono,
+          direccion
+        });
+
+      if (error) {
+        alert('Error al guardar los datos');
+      } else {
+        alert('Datos actualizados con éxito');
+      }
+    });
+  </script>
+  <script type="module" src="usuario.js"></script>
+
+</body>
+</html>

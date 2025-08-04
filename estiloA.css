@@ -1,0 +1,173 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(145deg, #0a0a0a, #101820);
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+header, footer {
+  background: #0f0f0f;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav ul li a:hover {
+  color: #0ff;
+}
+
+.banner {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #141414, #0a0a0a);
+  border: 2px solid #00ffff;
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 0 0 20px #00f0ff;
+}
+
+.banner h1 {
+  font-size: 2.5rem;
+  color: #00f0ff;
+}
+
+.banner p {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.titulo {
+  font-size: 2rem;
+  text-align: center;
+  margin: 40px 0 20px;
+  color: #fff;
+  text-shadow: 0 0 5px #0ff;
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.producto-card {
+  background: #111;
+  border: 2px solid #00ffff80;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 15px #00ffff40;
+}
+
+.producto-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #00f0ff;
+}
+
+.producto-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.producto-card h3 {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.producto-card p {
+  color: #ccc;
+  margin: 8px 0;
+}
+
+.producto-card button {
+  background: #ff00ff;
+  border: none;
+  padding: 10px 15px;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.producto-card button:hover {
+  background: #ff66ff;
+}
+
+footer {
+  flex-direction: column;
+  text-align: center;
+  color: #ccc;
+}
+
+footer .redes {
+  margin-top: 10px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+footer .redes a {
+  color: #00ffff;
+  font-size: 1.4rem;
+  transition: transform 0.3s;
+}
+
+footer .redes a:hover {
+  transform: scale(1.2);
+}
+
+.carrito-fijo {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #0ff;
+  color: #000;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #0ff;
+  z-index: 999;
+}
+
+.boton-carrito-flotante {
+  display: none; /* oculto porque ya tienes el ícono fijo */
+}
+.etiqueta-agotado {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  font-size: 0.8em;
+  border-radius: 4px;
+  z-index: 10;
+}

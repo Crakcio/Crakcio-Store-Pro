@@ -1,0 +1,77 @@
+body {
+  background: radial-gradient(circle at center, #0f0f1f, #000010);
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+h1, h2, h3 {
+  color: #ff00e1;
+  text-shadow: 0 0 10px #ff00e1;
+}
+a {
+  color: #00f2ff;
+  text-decoration: none;
+}
+button {
+  background: #000;
+  color: #00f2ff;
+  border: 2px solid #00f2ff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 20px #00f2ff99;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background: #111;
+  color: #ff00e1;
+  border-color: #ff00e1;
+  box-shadow: 0 0 25px #ff00e199;
+}
+.card-producto {
+  background: #1b1b2b;
+  border: 2px solid #ff00e1;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 16px;
+  box-shadow: 0 0 30px #ff00e133;
+  transition: transform 0.2s ease;
+}
+.card-producto:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 45px #ff00e1cc;
+}
+.navbar {
+  background: #111122;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 0 30px #00f2ff44;
+}
+.banner {
+  background: linear-gradient(90deg, #ff00e1, #00f2ff);
+  color: #fff;
+  padding: 50px 20px;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  border-radius: 16px;
+  margin: 30px auto;
+  box-shadow: 0 0 40px #00f2ff88;
+  max-width: 90%;
+}
+.etiqueta-agotado {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  font-size: 0.8em;
+  border-radius: 4px;
+  z-index: 10;
+}

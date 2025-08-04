@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Home - Crakcio Store</title>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link id="estilo-activo" rel="stylesheet" href="">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="images/logo-horizontal.png" alt="Crakcio Store Logo">
+    </div>
+    <div class="nav">
+      <button id="toggleMenu"><i data-lucide="menu"></i></button>
+      <nav id="menu" class="hidden">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="login.html"><i data-lucide="user"></i></a></li>
+          <li><a href="#" id="cerrar-sesion"><i data-lucide="log-out"></i> Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="banner">
+      <h1>🔌 Tu Hogar Inteligente Empieza Aquí 🏡</h1>
+      <p>Descubre la mejor tecnología smart al estilo Crakcio</p>
+    </section>
+
+    <section>
+      <h2 class="titulo">Productos Smart Home</h2>
+      <div id="productos-container" class="productos-grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Crakcio Store. Todos los derechos reservados.</p>
+    <div class="redes">
+      <a href="https://www.facebook.com/profile.php?id=61578344680156" target="_blank"><i data-lucide="facebook"></i></a>
+      <a href="https://www.instagram.com/crakciostore/" target="_blank"><i data-lucide="instagram"></i></a>
+      <a href="https://wa.me/51999207025" target="_blank"><i data-lucide="phone"></i></a>
+    </div>
+  </footer>
+
+  <!-- Carrito -->
+  <div id="icono-carrito" class="carrito-fijo">🛒</div>
+  <div id="carrito-panel" class="carrito-panel"></div>
+  <button onclick="mostrarCarrito()" class="boton-carrito-flotante">🛒</button>
+
+  <!-- Scripts -->
+  <script>
+    lucide.createIcons();
+  </script>
+  <script type="module">
+    import { supabase } from './supabaseClient.js';
+    import { mostrarProductosPorCategoria } from './products.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const { data, error } = await supabase
+        .from('configuracion_tienda')
+        .select('estilo_activo')
+        .limit(1)
+        .single();
+
+      const estilo = data?.estilo_activo || 'A';
+      document.getElementById('estilo-activo').href = estilo === 'A' ? 'estiloA.css' : 'estiloB.css';
+
+      mostrarProductosPorCategoria('Smart Home');
+    });
+  </script>
+  <script type="module" src="carrito.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iniciar Sesión - Crakcio Store</title>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link id="estilo-activo" rel="stylesheet" href="">
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .login-container {
+      max-width: 400px;
+      margin: 80px auto;
+      padding: 2rem;
+      background-color: #111;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #00f0ff;
+      border: 2px solid #00f0ff;
+      text-align: center;
+    }
+
+    h1 {
+      color: #00f0ff;
+      text-shadow: 0 0 10px #00f0ff;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      color: #fff;
+      text-align: left;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
+      background-color: #000;
+      color: #00f0ff;
+      border: 2px solid #00f0ff;
+      border-radius: 8px;
+      box-shadow: 0 0 8px #00f0ff;
+    }
+
+    button[type="submit"] {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1.1rem;
+      background-color: #00f0ff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00f0ff;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #00f0ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #000;
+      color: #888;
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="images/logo-horizontal.png" alt="Crakcio Store Logo">
+    </div>
+    <div class="nav">
+      <button id="toggleMenu"><i data-lucide="menu"></i></button>
+      <nav id="menu" class="hidden">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="registro.html">Registrarse</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="login-container">
+      <h1>🔐 Inicia Sesión</h1>
+      <form id="login-form">
+        <label for="email">Correo electrónico:</label>
+        <input type="email" name="email" required>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Ingresar</button>
+      </form>
+      <a href="#">¿Olvidaste tu contraseña?</a>
+      <p>¿No tienes cuenta? <a href="registro.html">Crea una aquí</a></p>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Crakcio Store. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+  <script type="module">
+    import { supabase } from './supabaseClient.js';
+
+    const form = document.getElementById('login-form');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = form.email.value;
+      const password = form.password.value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+  alert('Error al iniciar sesión: ' + error.message);
+  return;
+}
+
+// Verificar si el usuario es admin
+const user = data.user;
+
+const { data: admin, error: errorAdmin } = await supabase
+  .from('admins')
+  .select('*')
+  .eq('id', user.id)
+  .single();
+
+if (!errorAdmin && admin) {
+  alert('Bienvenido administrador');
+  window.location.href = 'admin.html';
+} else {
+  alert('Bienvenido a Crakcio Store');
+  window.location.href = 'index.html';
+}
+
+    });
+  </script>
+</body>
+</html>

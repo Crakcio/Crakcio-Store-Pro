@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crakcio Store</title>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link id="estilo-activo" rel="stylesheet" href="">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://checkout.culqi.com/js/v4"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .cat-card {
+      display: inline-block;
+      padding: 20px 30px;
+      margin: 10px;
+      border: 2px solid #00f2ff;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #0a0a1a, #1a1a2f);
+      box-shadow: 0 0 12px #00f2ff55;
+      transition: all 0.3s ease;
+    }
+    .cat-card:hover {
+      background: #111122;
+      color: #ff00e1;
+      border-color: #ff00e1;
+      box-shadow: 0 0 25px #ff00e199, 0 0 15px #00f2ff99;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="images/logo-horizontal.png" alt="Crakcio Store Logo">
+    </div>
+    <div id="usuario-info" class="hidden"></div>
+    <div class="nav">
+      <button id="toggleMenu"><i data-lucide="menu"></i></button>
+      <nav id="menu" class="hidden">
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#categorias">Categorías</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#" id="cerrar-sesion"><i data-lucide="log-out"></i> Cerrar sesión</a></li>
+          <li><a href="login.html"><i data-lucide="user"></i></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="banner" class="banner">
+      <img src="images/Banner2.png" alt="Banner Promocional">
+    </section>
+
+    <section id="categorias">
+      <h2 class="titulo">Categorías destacadas</h2>
+      <div class="categoria-grid">
+        <a href="smart-home.html" class="cat-card">Smart Home</a>
+        <a href="gamer.html" class="cat-card">Gamer</a>
+        <a href="iluminacion.html" class="cat-card">Iluminación</a>
+        <a href="otros.html" class="cat-card">Otros</a>
+        <a href="zona-gamer.html" class="cat-card">🎮 Zona Gamer</a>
+
+      </div>
+    </section>
+
+    <section id="destacados">
+      <h2 class="titulo">Productos destacados</h2>
+      <div id="productos-container" class="productos-grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Crakcio Store. Todos los derechos reservados.</p>
+    <div class="redes">
+      <a href="https://www.facebook.com/profile.php?id=61578344680156" target="_blank"><i data-lucide="facebook"></i></a>
+      <a href="https://www.instagram.com/crakciostore/" target="_blank"><i data-lucide="instagram"></i></a>
+      <a href="https://wa.me/51999207025" target="_blank"><i data-lucide="phone"></i></a>
+    </div>
+  </footer>
+
+  <div id="icono-carrito" class="carrito-fijo">🛒</div>
+  <div id="carrito-panel" class="carrito-panel"></div>
+  <button onclick="mostrarCarrito()" class="boton-carrito-flotante">🛒</button>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <script type="module">
+    import { supabase } from './supabaseClient.js';
+    document.addEventListener('DOMContentLoaded', async () => {
+      const { data, error } = await supabase
+        .from('configuracion_tienda')
+        .select('estilo_activo')
+        .limit(1)
+        .single();
+
+      const estilo = data?.estilo_activo || 'A';
+      const link = document.getElementById('estilo-activo');
+      link.href = estilo === 'A' ? 'estiloA.css' : 'estiloB.css';
+    });
+  </script>
+  <script type="module" src="usuario.js"></script>
+  <script type="module" src="carrito.js"></script>
+  <script type="module" src="usuario.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
+
+
+
