@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Space Crakcio Cadet - Pinball 3D Gamer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="space-crakcio-cadet.css" />
+</head>
+<body>
+  <div class="pinball-container">
+    <canvas id="pinballCanvas" width="600" height="800"></canvas>
+
+    <div class="hud">
+      <div class="hud-item"><span>Puntaje:</span> <span id="score">0</span></div>
+      <div class="hud-item"><span>Bolas:</span> <span id="lives">3</span></div>
+    </div>
+
+    <div class="title">
+      <h1>🚀 Space Crakcio Cadet</h1>
+      <p class="subtitle">Versión Gamer - Inspirado en el Pinball Clásico de Windows XP</p>
+    </div>
+
+    <div class="controls">
+      <button onclick="activarModoDesafio()">🔥 Activar Modo Desafío</button>
+      <button onclick="desactivarModoDesafio()">🎵 Modo Normal</button>
+    </div>
+
+    <footer>
+      <p>Un proyecto de <strong>Crakcio Arcade</strong> - Todos los derechos reservados</p>
+    </footer>
+  </div>
+
+  <script type="module" src="space-crakcio-cadet.js"></script>
+</body>
+</html>

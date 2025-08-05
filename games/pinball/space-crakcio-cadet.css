@@ -1,0 +1,88 @@
+/* Estilo general del fondo animado */
+body, html {
+  margin: 0;
+  padding: 0;
+  background: black;
+  font-family: 'Orbitron', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas#backgroundStars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* Zona del juego estilo máquina pinball */
+canvas#pinballCanvas {
+  z-index: 1;
+  width: 600px;
+  height: 800px;
+  background: #000;
+  border: 4px solid cyan;
+  border-radius: 16px;
+  box-shadow: 0 0 25px cyan, 0 0 50px magenta;
+}
+
+/* Contenedor del juego completo */
+.game-container {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  z-index: 2;
+}
+
+.game-header h1 {
+  font-size: 32px;
+  color: cyan;
+  margin: 0;
+}
+
+.game-header p {
+  font-size: 16px;
+  color: #ccc;
+  margin: 4px 0 10px 0;
+}
+
+.controls button {
+  margin: 10px 5px;
+  padding: 10px 20px;
+  background: magenta;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 0 10px magenta;
+  transition: transform 0.2s ease;
+}
+
+.controls button:hover {
+  transform: scale(1.05);
+  background: deeppink;
+}
+
+.game-footer {
+  margin-top: 20px;
+  color: cyan;
+  font-size: 14px;
+}
+
+/* HUD dentro del canvas: ya es dibujado por JS */
+#pinballCanvas {
+  border-radius: 20px;
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff, 0 0 60px #0ff;
+  border: 4px solid #00f0ff;
+  display: block;
+  margin: 30px auto;
+  position: relative;
+  z-index: 2;
+}
