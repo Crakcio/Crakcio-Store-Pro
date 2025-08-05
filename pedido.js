@@ -104,3 +104,4 @@ async function validarPerfilCompleto() {
 
   return true;
 }
+
