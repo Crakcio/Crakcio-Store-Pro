@@ -235,7 +235,11 @@ window.marcarComoEntregado = async function (idPedido) {
   }
 }
 
-// Ejecutar carga inicial
+
+
+
+
+
 
 
 
