@@ -263,3 +263,4 @@ window.elegirMetodoPago = elegirMetodoPago;
 window.mostrarQR = mostrarQR;
 
 document.addEventListener('DOMContentLoaded', mostrarCarrito);
+
