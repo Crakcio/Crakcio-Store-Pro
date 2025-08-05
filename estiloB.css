@@ -1,19 +1,52 @@
+/* Fondo estrellado animado */
 body {
-  background: radial-gradient(circle at center, #0f0f1f, #000010);
+  background: #000010;
   color: #ffffff;
   font-family: 'Orbitron', sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  position: relative;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: transparent url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/star.png') repeat;
+  animation: starsMove 100s linear infinite;
+  z-index: -1;
+  opacity: 0.4;
+  transform: scale(1.5);
+}
+
+@keyframes starsMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -1000px 1000px;
+  }
+}
+
 h1, h2, h3 {
   color: #ff00e1;
-  text-shadow: 0 0 10px #ff00e1;
+  text-shadow: 0 0 10px #ff00e1, 0 0 20px #ff00e199;
 }
+
 a {
   color: #00f2ff;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
+a:hover {
+  color: #ff00e1;
+  text-shadow: 0 0 10px #ff00e1aa;
+}
+
 button {
   background: #000;
   color: #00f2ff;
@@ -22,35 +55,41 @@ button {
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0 20px #00f2ff99;
+  box-shadow: 0 0 20px #00f2ff99, inset 0 0 10px #00f2ff33;
   transition: all 0.3s ease;
 }
 button:hover {
   background: #111;
   color: #ff00e1;
   border-color: #ff00e1;
-  box-shadow: 0 0 25px #ff00e199;
+  box-shadow: 0 0 25px #ff00e199, inset 0 0 15px #ff00e122;
 }
+
 .card-producto {
-  background: #1b1b2b;
+  background: rgba(27, 27, 43, 0.9);
   border: 2px solid #ff00e1;
   border-radius: 16px;
   padding: 16px;
   margin: 16px;
   box-shadow: 0 0 30px #ff00e133;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(4px);
 }
 .card-producto:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 45px #ff00e1cc;
+  box-shadow: 0 0 45px #ff00e1cc, inset 0 0 10px #ff00e144;
 }
+
 .navbar {
-  background: #111122;
+  background: rgba(17, 17, 34, 0.9);
   padding: 16px 24px;
   display: flex;
   justify-content: space-between;
   box-shadow: 0 0 30px #00f2ff44;
+  backdrop-filter: blur(3px);
+  border-bottom: 2px solid #00f2ff44;
 }
+
 .banner {
   background: linear-gradient(90deg, #ff00e1, #00f2ff);
   color: #fff;
@@ -60,9 +99,10 @@ button:hover {
   font-weight: bold;
   border-radius: 16px;
   margin: 30px auto;
-  box-shadow: 0 0 40px #00f2ff88;
+  box-shadow: 0 0 40px #00f2ff88, inset 0 0 20px #ffffff22;
   max-width: 90%;
 }
+
 .etiqueta-agotado {
   position: absolute;
   top: 5px;
@@ -74,4 +114,30 @@ button:hover {
   font-size: 0.8em;
   border-radius: 4px;
   z-index: 10;
+  box-shadow: 0 0 10px red;
 }
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: #00f2ff;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 12px #00f2ff, 0 0 24px #00f2ff88;
+  z-index: 9999;
+  animation: trailFade 0.8s linear forwards;
+}
+
+@keyframes trailFade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
