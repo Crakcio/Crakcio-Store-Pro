@@ -1,4 +1,5 @@
 import { supabase } from './supabaseClient.js';
+import { agregarAlCarritoDesdeProducto, mostrarCarrito } from './carrito.js';
 
 async function obtenerProductosDestacados() {
   const { data, error } = await supabase
@@ -24,34 +25,37 @@ function mostrarProductosDestacados(productos) {
   const contenedor = document.getElementById('productos-container');
   contenedor.innerHTML = '';
 
-  if (!Array.isArray(productos)) {
-    console.warn('Productos no es un arreglo:', productos);
-    return;
-  }
-
   productos.forEach(producto => {
     const div = document.createElement('div');
-    div.classList.add('producto-card');
+    div.classList.add('producto-flip-card');
     div.innerHTML = `
+  <div class="producto-flip-inner">
+    <div class="producto-flip-front">
       <img src="${producto.imagen_url}" alt="${producto.nombre}" />
       <h4>${producto.nombre}</h4>
       <p>S/ ${producto.precio}</p>
-      <button 
-        class="agregar-btn"
-        data-id="${producto.id}"
-        data-nombre="${encodeURIComponent(producto.nombre)}"
-        data-precio="${producto.precio}"
-        data-imagen="${producto.imagen_url}">
-        Agregar al carrito
-      </button>
-    `;
+    </div>
+    <div class="producto-flip-back">
+      <p>${producto.descripcion || 'Sin descripción disponible.'}</p>
+    </div>
+  </div>
+  <button 
+    class="agregar-btn"
+    data-id="${producto.id}"
+    data-nombre="${encodeURIComponent(producto.nombre)}"
+    data-precio="${producto.precio}"
+    data-imagen="${producto.imagen_url}">
+    Agregar al carrito
+  </button>
+`;
+
     contenedor.appendChild(div);
   });
 
   // Agregar los eventos a cada botón
   document.querySelectorAll('.agregar-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const id = btn.dataset.id; // ✅ Lo usamos como string, como debe ser
+      const id = btn.dataset.id;
       const nombre = decodeURIComponent(btn.dataset.nombre);
       const precio = parseFloat(btn.dataset.precio);
       const imagen_url = btn.dataset.imagen;
@@ -59,6 +63,7 @@ function mostrarProductosDestacados(productos) {
     });
   });
 }
+
 
 document.addEventListener('DOMContentLoaded', async () => {
   const iconoPerfil = document.getElementById('icono-perfil');
@@ -109,3 +114,4 @@ document.addEventListener('DOMContentLoaded', () => {
     mostrarCarrito();
   }
 });
+
