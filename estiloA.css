@@ -171,5 +171,85 @@ footer .redes a:hover {
   border-radius: 4px;
   z-index: 10;
 }
+.producto-flip-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  height: auto;
+  perspective: 1000px;
+  margin: 10px;
+}
 
+
+.producto-flip-inner {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.producto-flip-card:hover .producto-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.producto-flip-front,
+.producto-flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border: 1px solid #00f2ff;
+  border-radius: 12px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.producto-flip-front img {
+  max-width: 100%;
+  max-height: 130px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+.producto-flip-front {
+  background-color: #0a0a1a;
+  color: white;
+  z-index: 2;
+}
+.producto-flip-back {
+  transform: rotateY(180deg);
+  background-color: #111;
+  color: #fff;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.producto-flip-card button.agregar-btn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #00f2ff;
+  border: none;
+  color: black;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.enlaces-legales {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.enlaces-legales a {
+  color: #00f2ff;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.enlaces-legales a:hover {
+  color: #ff00e1;
+  text-decoration: underline;
+}
 
