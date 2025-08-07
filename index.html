@@ -80,6 +80,11 @@
 
   <footer>
     <p>&copy; 2025 Crakcio Store. Todos los derechos reservados.</p>
+    <div class="enlaces-legales">
+    <a href="terminos.html">Términos y Condiciones</a> |
+    <a href="politicas.html">Políticas de Cambio</a> |
+    <a href="reclamaciones.html">Libro de Reclamaciones</a>
+  </div>
     <div class="redes">
       <a href="https://www.facebook.com/profile.php?id=61578344680156" target="_blank"><i data-lucide="facebook"></i></a>
       <a href="https://www.instagram.com/crakciostore/" target="_blank"><i data-lucide="instagram"></i></a>
@@ -87,7 +92,7 @@
     </div>
   </footer>
 
-  <div id="icono-carrito" class="carrito-fijo">🛒</div>
+  <div id="icono-carrito" class="carrito-fijo">🛒  <span id="contador-carrito" class="contador-carrito"></span></div>
   <div id="carrito-panel" class="carrito-panel"></div>
   <button onclick="mostrarCarrito()" class="boton-carrito-flotante">🛒</button>
 
@@ -120,13 +125,37 @@
     setTimeout(() => trail.remove(), 800);
   });
 </script>
+  <script type="module">
+  import {
+    mostrarCarrito,
+    actualizarContadorCarrito,
+    actualizarIconoCarrito,
+    agregarAlCarritoDesdeProducto
+  } from './carrito.js';
 
-  <script type="module" src="usuario.js"></script>
-  <script type="module" src="carrito.js"></script>
+  document.addEventListener('DOMContentLoaded', () => {
+    mostrarCarrito();
+    actualizarContadorCarrito();
+    actualizarIconoCarrito();
+
+    document.querySelectorAll('.agregar-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const nombre = decodeURIComponent(btn.dataset.nombre);
+        const precio = parseFloat(btn.dataset.precio);
+        const imagen_url = btn.dataset.imagen;
+        agregarAlCarritoDesdeProducto(id, nombre, precio, imagen_url);
+      });
+    });
+  });
+</script>
+<script type="module" src="products.js"></script>
   <script type="module" src="usuario.js"></script>
   <script type="module" src="app.js"></script>
 </body>
 </html>
+
+
 
 
 
