@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Otros Productos - Crakcio Store</title>
+  <title>Otros - Crakcio Store</title>
   <link rel="icon" href="images/favicon.png" type="image/png">
   <link id="estilo-activo" rel="stylesheet" href="">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <header class="navbar">
@@ -29,12 +29,12 @@
 
   <main>
     <section class="banner">
-      <h1>🤖 Zona de Inventos y Curiosidades 🤖</h1>
-      <p>Accesorios, gadgets, y todo lo inesperado con estilo Crakcio</p>
+      <h1>🔌 Productos variados 🏡</h1>
+      <p>Encuentra lo que necesitas al mejor precio</p>
     </section>
 
-    <section id="productos-otros">
-      <h2 class="titulo">Otros Productos</h2>
+    <section>
+      <h2 class="titulo">Productos Otros</h2>
       <div id="productos-container" class="productos-grid"></div>
     </section>
   </main>
@@ -48,33 +48,132 @@
     </div>
   </footer>
 
-  <div id="icono-carrito" class="carrito-fijo">🛒</div>
+  <!-- Carrito -->
+  <div id="icono-carrito" class="carrito-fijo">
+    🛒
+    <span id="contador-carrito" class="contador-carrito"></span>
+  </div>
   <div id="carrito-panel" class="carrito-panel"></div>
   <button onclick="mostrarCarrito()" class="boton-carrito-flotante">🛒</button>
 
+  <!-- Iconos -->
   <script>
     lucide.createIcons();
   </script>
 
-  <script type="module">
-    import { supabase } from './supabaseClient.js';
-    import { mostrarProductosPorCategoria } from './products.js';
+  <!-- SCRIPTS EN ORDEN CORRECTO -->
+  <script src="supabaseClient.js"></script>
+  <script src="carrito.js"></script>
 
+  <!-- Script de productos de esta categoría -->
+  <script>
     document.addEventListener('DOMContentLoaded', async () => {
-      const { data, error } = await supabase
+      // Estilo dinámico
+      const { data: estiloData } = await supabase
         .from('configuracion_tienda')
         .select('estilo_activo')
         .limit(1)
         .single();
 
-      const estilo = data?.estilo_activo || 'A';
+      const estilo = estiloData?.estilo_activo || 'A';
       document.getElementById('estilo-activo').href = estilo === 'A' ? 'estiloA.css' : 'estiloB.css';
 
-      mostrarProductosPorCategoria('Otros');
+      // Cargar productos otros
+      const contenedor = document.getElementById('productos-container');
+      const { data: productos, error: errorProductos } = await supabase
+        .from('productos')
+        .select('*')
+        .eq('categoria', 'otros');
+
+      if (errorProductos || !productos) {
+        contenedor.innerHTML = '<p>Error al cargar productos.</p>';
+        return;
+      }
+
+      contenedor.innerHTML = '';
+      productos.forEach(producto => {
+        const div = document.createElement('div');
+        div.classList.add('producto-card');
+        div.innerHTML = `
+          <img src="${producto.imagen_url}" alt="${producto.nombre}" />
+          <h4>${producto.nombre}</h4>
+          <p>S/ ${producto.precio}</p>
+          <button onclick="agregarAlCarritoDesdeProducto(${producto.id}, '${encodeURIComponent(producto.nombre)}', ${producto.precio}, '${producto.imagen_url}')">
+            Agregar al carrito
+          </button>
+        `;
+        contenedor.appendChild(div);
+      });
     });
   </script>
 
-  <script type="module" src="carrito.js"></script>
+  <!-- Mostrar carrito flotante -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const iconoCarrito = document.getElementById('icono-carrito');
+      const panelCarrito = document.getElementById('carrito-panel');
+
+      if (iconoCarrito && panelCarrito) {
+        iconoCarrito.addEventListener('click', () => {
+          panelCarrito.classList.toggle('visible');
+        });
+      }
+
+      if (typeof mostrarCarrito === 'function') {
+        mostrarCarrito();
+      }
+    });
+  </script>
+<script>
+  console.log("¿carrito cargado?", typeof agregarAlCarritoDesdeProducto);
+</script>
+<script type="module">
+  import { supabase } from './supabaseClient.js';
+  import { agregarAlCarritoDesdeProducto, mostrarCarrito } from './carrito.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const { data: estiloData } = await supabase
+      .from('configuracion_tienda')
+      .select('estilo_activo')
+      .limit(1)
+      .single();
+
+    const estilo = estiloData?.estilo_activo || 'A';
+    document.getElementById('estilo-activo').href = estilo === 'A' ? 'estiloA.css' : 'estiloB.css';
+
+    const contenedor = document.getElementById('productos-container');
+    const { data: productos, error } = await supabase
+      .from('productos')
+      .select('*')
+      .eq('categoria', 'otros');
+
+    if (error || !productos) {
+      contenedor.innerHTML = '<p>Error al cargar productos.</p>';
+      return;
+    }
+
+    productos.forEach(producto => {
+      const div = document.createElement('div');
+      div.classList.add('producto-card');
+      div.innerHTML = `
+        <img src="${producto.imagen_url}" alt="${producto.nombre}" />
+        <h4>${producto.nombre}</h4>
+        <p>S/ ${producto.precio}</p>
+      `;
+      const boton = document.createElement('button');
+      boton.textContent = 'Agregar al carrito';
+      boton.addEventListener('click', () => {
+        agregarAlCarritoDesdeProducto(producto.id, encodeURIComponent(producto.nombre), producto.precio, producto.imagen_url);
+      });
+      div.appendChild(boton);
+      contenedor.appendChild(div);
+    });
+
+    mostrarCarrito();
+  });
+</script>
+
 </body>
 </html>
+
 
