@@ -1,9 +1,19 @@
-// Cargar productos categoría Iluminación
 import { supabase } from './supabaseClient.js';
+import {
+  agregarAlCarritoDesdeProducto,
+  mostrarCarrito,
+  actualizarIconoCarrito,
+  restarProductoDelCarrito,
+  quitarDelCarrito,
+  vaciarCarrito,
+  confirmarCompra,
+  elegirMetodoPago,
+  mostrarQR
+} from './carrito.js';
 
 const contenedor = document.getElementById('productos-iluminacion');
 
-async function cargarProductosIluminacion() {
+async function cargarProductosCategoria() {
   const { data, error } = await supabase
     .from('productos')
     .select('*')
@@ -18,15 +28,18 @@ async function cargarProductosIluminacion() {
   data.forEach(producto => {
     const div = document.createElement('div');
     div.classList.add('producto');
-   div.innerHTML = `
-  <img src="${producto.imagen_url}" alt="${producto.nombre}" />
-  <h4>${producto.nombre}</h4>
-  <p>S/ ${producto.precio}</p>
-  <button onclick='agregarAlCarritoDesdeProducto(${JSON.stringify(producto)})'>Agregar al carrito</button>
-`;
 
+    div.innerHTML = `
+      <img src="${producto.imagen_url}" alt="${producto.nombre}" />
+      <h4>${producto.nombre}</h4>
+      <p>S/ ${producto.precio}</p>
+      <button onclick="agregarAlCarritoDesdeProducto(${producto.id}, '${producto.nombre}', ${producto.precio}, '${producto.imagen_url}')">
+        Agregar al carrito
+      </button>
+    `;
     contenedor.appendChild(div);
   });
 }
 
-cargarProductosIluminacion();
+cargarProductosCategoria();
+
