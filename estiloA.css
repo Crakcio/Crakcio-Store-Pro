@@ -66,9 +66,10 @@ header, footer {
 
 .productos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 30px;
   padding: 20px;
+  justify-items: center;
 }
 
 .producto-card {
@@ -172,14 +173,17 @@ footer .redes a:hover {
   z-index: 10;
 }
 .producto-flip-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 200px;
-  height: auto;
-  perspective: 1000px;
-  margin: 10px;
+  width: 220px;
+  min-height: 340px;
+  border: 2px solid cyan;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #111;
+  color: white;
+  box-shadow: 0 0 10px cyan;
+  transition: transform 0.3s ease;
 }
+
 
 
 .producto-flip-inner {
