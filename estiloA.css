@@ -66,7 +66,7 @@ header, footer {
 
 .productos-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   padding: 20px;
   justify-items: center;
@@ -173,17 +173,24 @@ footer .redes a:hover {
   z-index: 10;
 }
 .producto-flip-card {
-  width: 220px;
-  min-height: 340px;
-  border: 2px solid cyan;
-  border-radius: 10px;
+  background: #0a0a1a;
+  border: 2px solid #00f2ff;
+  border-radius: 12px;
+  box-shadow: 0 0 12px #00f2ff55;
+  width: 230px;
+  height: 380px; /* Altura fija para mantener todo alineado */
   padding: 10px;
-  background-color: #111;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   color: white;
-  box-shadow: 0 0 10px cyan;
   transition: transform 0.3s ease;
 }
-
+.producto-flip-card:hover {
+  transform: scale(1.05);
+  border-color: #ff00e1;
+  box-shadow: 0 0 25px #ff00e199, 0 0 15px #00f2ff99;
+}
 
 
 .producto-flip-inner {
@@ -211,7 +218,7 @@ footer .redes a:hover {
 }
 .producto-flip-front img {
   max-width: 100%;
-  max-height: 130px;
+  height: 120px;
   object-fit: contain;
   margin-bottom: 10px;
 }
@@ -219,6 +226,16 @@ footer .redes a:hover {
   background-color: #0a0a1a;
   color: white;
   z-index: 2;
+}
+.producto-flip-front h4 {
+  font-size: 16px;
+  min-height: 40px;
+  margin-bottom: 5px;
+}
+.producto-flip-front p {
+  font-size: 15px;
+  color: #0ff;
+  margin: 0 0 10px 0;
 }
 .producto-flip-back {
   transform: rotateY(180deg);
@@ -229,6 +246,21 @@ footer .redes a:hover {
   justify-content: center;
   align-items: center;
   font-size: 0.9rem;
+}
+.agregar-btn {
+  background-color: cyan;
+  color: black;
+  border: none;
+  padding: 6px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.agregar-btn:hover {
+  background-color: #ff00e1;
+  color: white;
 }
 .producto-flip-card button.agregar-btn {
   margin-top: 10px;
