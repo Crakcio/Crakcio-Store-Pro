@@ -43,8 +43,3 @@ async function cargarProductosCategoria() {
 
 cargarProductosCategoria();
 
-    contenedor.appendChild(div);
-  });
-}
-
-cargarProductosCategoria();
